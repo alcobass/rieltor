@@ -4,177 +4,177 @@ SET NAMES cp1251;
 TRUNCATE TABLE ADVERT_TYPE;
 INSERT INTO ADVERT_TYPE VALUE(
 	NULL,
-	'Покупка'
+	'╧юъєяър'
 );
 INSERT INTO ADVERT_TYPE VALUE(
 	NULL,
-	'Продажа'
+	'╧Ёюфрцр'
 );
 INSERT INTO ADVERT_TYPE VALUE(
 	NULL,
-	'Аренда спрос'
+	'└Ёхэфр ёяЁюё'
 );
 INSERT INTO ADVERT_TYPE VALUE(
 	NULL,
-	'Аренда предложение'
+	'└Ёхэфр яЁхфыюцхэшх'
 );
 SELECT * FROM ADVERT_TYPE;
 
 TRUNCATE TABLE OBJECT_TYPE;
 INSERT INTO OBJECT_TYPE VALUE(
 	NULL,
-	'Хрущевка'
+	'╒Ёє∙хтър'
 );
 INSERT INTO OBJECT_TYPE VALUE(
 	NULL,
-	'Чешка'
+	'╫х°ър'
 );
 INSERT INTO OBJECT_TYPE VALUE(
 	NULL,
-	'Брежневка'
+	'┴Ёхцэхтър'
 );
 INSERT INTO OBJECT_TYPE VALUE(
 	NULL,
-	'Малосемейка'
+	'╠рыюёхьхщър'
 );
 INSERT INTO OBJECT_TYPE VALUE(
 	NULL,
-	'ЗГТ'
+	'╟├╥'
 );
 INSERT INTO OBJECT_TYPE VALUE(
 	NULL,
-	'Общага'
+	'╬с∙рур'
 );
 INSERT INTO OBJECT_TYPE VALUE(
 	NULL,
-	'Повышенной площади'
+	'╧ют√°хээющ яыю∙рфш'
 );
 SELECT * FROM OBJECT_TYPE;
 
 TRUNCATE TABLE BALCONY;
 INSERT INTO BALCONY VALUE(
 	NULL,
-	'Отсутствует'
+	'╬ЄёєЄёЄтєхЄ'
 );
 INSERT INTO BALCONY VALUE(
 	NULL,
-	'Незастекленный'
+	'═хчрёЄхъыхээ√щ'
 );
 INSERT INTO BALCONY VALUE(
 	NULL,
-	'Застекленный'
+	'╟рёЄхъыхээ√щ'
 );
 INSERT INTO BALCONY VALUE(
 	NULL,
-	'Утепленный'
+	'╙Єхяыхээ√щ'
 );                 
 SELECT * FROM BALCONY;
 
 TRUNCATE TABLE TOILET;
 INSERT INTO TOILET VALUE(
 	NULL,
-	'Совмещенный'
+	'╤ютьх∙хээ√щ'
 );                    
 INSERT INTO TOILET VALUE(
 	NULL,
-	'Раздельный'
+	'╨рчфхы№э√щ'
 );                 
 INSERT INTO TOILET VALUE(
 	NULL,
-	'На этаже'
+	'═р ¤Єрцх'
 );                   
 SELECT * FROM TOILET;
 
 TRUNCATE TABLE HEAT;
 INSERT INTO HEAT VALUE(
 	NULL,
-	'Центральное'
+	'╓хэЄЁры№эюх'
 );                   
 INSERT INTO HEAT VALUE(
 	NULL,
-	'Центральное с регулировкой'
+	'╓хэЄЁры№эюх ё ЁхуєышЁютъющ'
 );                  
 INSERT INTO HEAT VALUE(
 	NULL,
-	'АОГВ'
+	'└╬├┬'
 );                  
 SELECT * FROM HEAT;
 
 TRUNCATE TABLE STOVE;
 INSERT INTO STOVE VALUE(
 	NULL,
-	'Газовая'
+	'├рчютр '
 );                  
 INSERT INTO STOVE VALUE(
 	NULL,
-	'Электрическая'
+	'▌ыхъЄЁшўхёър '
 );              
 SELECT * FROM STOVE;
 
 TRUNCATE TABLE STOVE;
 INSERT INTO STOVE VALUE(
 	NULL,
-	'Газовая'
+	'├рчютр '
 );                  
 INSERT INTO STOVE VALUE(
 	NULL,
-	'Электрическая'
+	'▌ыхъЄЁшўхёър '
 );              
 SELECT * FROM STOVE;
 
 TRUNCATE TABLE OBJECT_STATE;
 INSERT INTO OBJECT_STATE VALUE(
 	NULL,
-	'Плохое'
+	'╧ыюїюх'
 );                  
 INSERT INTO OBJECT_STATE VALUE(
 	NULL,
-	'Удовлетворительное'
+	'╙фютыхЄтюЁшЄхы№эюх'
 );              
 INSERT INTO OBJECT_STATE VALUE(
 	NULL,
-	'Хорошее'
+	'╒юЁю°хх'
 );              
 INSERT INTO OBJECT_STATE VALUE(
 	NULL,
-	'Отличное'
+	'╬Єышўэюх'
 );               
 SELECT * FROM OBJECT_STATE;
 
 TRUNCATE TABLE STATE_TYPE;
 INSERT INTO STATE_TYPE VALUE(
 	NULL,
-	'Новое'
+	'═ютюх'
 );               
 INSERT INTO STATE_TYPE VALUE(
 	NULL,
-	'Реализованное'
+	'╨хрышчютрээюх'
 );          
 INSERT INTO STATE_TYPE VALUE(
 	NULL,
-	'Отмененное'
+	'╬Єьхэхээюх'
 );              
 SELECT * FROM STATE_TYPE;
 
 TRUNCATE TABLE REGION;
 INSERT INTO REGION VALUE(
 	NULL,
-	'Железнодорожный'
+	'╞хыхчэюфюЁюцэ√щ'
 );              
 INSERT INTO REGION VALUE(
 	NULL,
-	'Левобережный'
+	'╦хтюсхЁхцэ√щ'
 );       
 INSERT INTO REGION VALUE(
 	NULL,
-	'Ленинский'
+	'╦хэшэёъшщ'
 );              
 INSERT INTO REGION VALUE(
 	NULL,
-	'Коминтерновский'
+	'╩юьшэЄхЁэютёъшщ'
 );              
 INSERT INTO REGION VALUE(
 	NULL,
-	'Северный'
+	'╤хтхЁэ√щ'
 );              
 SELECT * FROM REGION;
