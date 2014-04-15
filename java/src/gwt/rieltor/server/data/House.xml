@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="House">
+	
+	<resultMap id="result" type="House">
+	    <result property="id" column="ID"/>	    
+	    <result property="adress" column="ADRESS"/>
+	    <result property="levels" column="LEVELS"/>
+	    <result property="builtYear" column="BUILT_YEAR"/>
+	    <result property="lastRepair" column="LAST_REPAIR"/>
+	    <association property="region" javaType="Region">
+	    	<result property="id" column="ID"/>
+	    	<result property="region" column="REGION"/>
+	    </association>
+    </resultMap>
+	
+    <select id="getAll" resultMap="result">
+    	SELECT H.ID, 
+    	       H.ADRESS,
+    	       H.LEVELS,
+    	       H.BUILT_YEAR,
+    	       H.LAST_REPAIR,
+    	       R.ID,
+    	       R.REGION 	       
+    	  FROM HOUSE AS H
+    	  LEFT OUTER JOIN REGION AS R 
+    	  ON H.REGION_ID = R.ID;
+    </select>
+    
+</mapper>

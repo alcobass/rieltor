@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ObjectData">
+	
+	<resultMap id="result" type="ObjectData">
+	    <result property="id" column="ID"/>
+	    <result property="rooms" column="ROOMS"/>
+	    <result property="area" column="AREA"/>
+	    <result property="level" column="LEVEL"/>
+	    <result property="porch" column="PORCH"/>
+	    <result property="meters" column="METERS"/>
+	    <association property="house" javaType="House">
+	    	<result property="id" column="ID"/>	    
+		    <result property="adress" column="ADRESS"/>
+		    <result property="levels" column="LEVELS"/>
+		    <result property="builtYear" column="BUILT_YEAR"/>
+		    <result property="lastRepair" column="LAST_REPAIR"/>
+		    <association property="region" javaType="Region">
+		    	<result property="id" column="ID"/>
+		    	<result property="region" column="REGION"/>
+		    </association>
+	    </association>
+	    <association property="objectType" javaType="ObjectType">
+	    	<result property="id" column="ID"/>
+	    	<result property="type" column="TYPE"/>
+		</association>
+		<association property="balcony" javaType="Balcony">
+	    	<result property="id" column="ID"/>
+	    	<result property="type" column="TYPE"/>
+		</association>
+		<association property="toilet" javaType="Toilet">
+	    	<result property="id" column="ID"/>
+	    	<result property="type" column="TYPE"/>
+		</association>
+		<association property="heat" javaType="Heat">
+	    	<result property="id" column="ID"/>
+	    	<result property="type" column="TYPE"/>
+		</association>
+		<association property="stove" javaType="Stove">
+	    	<result property="id" column="ID"/>
+	    	<result property="type" column="TYPE"/>
+		</association>
+		<association property="objectState" javaType="ObjectState">
+	    	<result property="id" column="ID"/>
+	    	<result property="type" column="TYPE"/>
+		</association>
+    </resultMap>
+	
+    <select id="getAll" resultMap="result">
+    	SELECT O.ID, 
+    	       O.ROOMS,
+    	       O.AREA,
+    	       O.LEVEL,
+    	       O.PORCH,
+    	       O.METERS,
+    	       H.ID,
+    	       H.ADRESS,
+    	       H.LEVELS,
+    	       H.BUILT_YEAR,
+    	       H.LAST_REPAIR,
+    	       R.ID,
+    	       R.REGION, 
+    	       OT.ID,
+    	       OT.TYPE,
+    	       B.ID,
+    	       B.TYPE,
+    	       T.ID,
+    	       T.TYPE,
+    	       HT.ID,
+    	       HT.TYPE,
+    	       S.ID,
+    	       S.TYPE,
+    	       OS.ID,
+    	       OS.TYPE
+    	  FROM OBJECT AS O
+    	  LEFT OUTER JOIN HOUSE AS H ON O.HOUSE_ID = H.ID
+    	  LEFT OUTER JOIN REGION AS R ON H.REGION_ID = R.ID
+    	  LEFT OUTER JOIN OBJECT_TYPE AS OT ON O.OBJECT_TYPE_ID = OT.ID
+    	  LEFT OUTER JOIN BALCONY AS B ON O.BALCONY_ID = B.ID
+    	  LEFT OUTER JOIN TOILET AS T ON O.TOILET_ID = T.ID
+    	  LEFT OUTER JOIN HEAT AS HT ON O.HEAT_ID = HT.ID
+    	  LEFT OUTER JOIN STOVE AS S ON O.STOVE_ID = S.ID
+    	  LEFT OUTER JOIN OBJECT_STATE AS OS ON O.OBJECT_STATE_ID = OS.ID;
+    </select>
+    
+</mapper>

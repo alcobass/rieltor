@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<typeAliases>
+		<typeAlias alias="AdvertType" type="gwt.rieltor.shared.AdvertType"/>
+		<typeAlias alias="Balcony" type="gwt.rieltor.shared.Balcony"/>
+		<typeAlias alias="Heat" type="gwt.rieltor.shared.Heat"/>
+		<typeAlias alias="House" type="gwt.rieltor.shared.House"/>
+		<typeAlias alias="ObjectData" type="gwt.rieltor.shared.ObjectData"/>
+		<typeAlias alias="ObjectState" type="gwt.rieltor.shared.ObjectState"/>
+		<typeAlias alias="ObjectType" type="gwt.rieltor.shared.ObjectType"/>
+		<typeAlias alias="Region" type="gwt.rieltor.shared.Region"/>
+		<typeAlias alias="StateType" type="gwt.rieltor.shared.StateType"/>
+		<typeAlias alias="Stove" type="gwt.rieltor.shared.Stove"/>
+		<typeAlias alias="Toilet" type="gwt.rieltor.shared.Toilet"/>
+	</typeAliases>
+	
+	<environments default="development">
+		<environment id="development">
+		  <transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver"/>
+				<property name="url" value="jdbc:mysql://localhost:3306/rieltoragency"/>
+				<property name="username" value="root"/>
+				<property name="password" value="24035"/>
+			</dataSource>
+	   </environment>
+	</environments>
+	
+    <mappers>
+  	   <mapper resource="gwt/rieltor/server/data/AdvertType.xml"/>
+  	   <mapper resource="gwt/rieltor/server/data/Balcony.xml"/>
+  	   <mapper resource="gwt/rieltor/server/data/Heat.xml"/>
+  	   <mapper resource="gwt/rieltor/server/data/House.xml"/>
+  	   <mapper resource="gwt/rieltor/server/data/ObjectData.xml"/>
+  	   <mapper resource="gwt/rieltor/server/data/ObjectState.xml"/>
+  	   <mapper resource="gwt/rieltor/server/data/ObjectType.xml"/>
+  	   <mapper resource="gwt/rieltor/server/data/Region.xml"/>
+  	   <mapper resource="gwt/rieltor/server/data/StateType.xml"/>
+  	   <mapper resource="gwt/rieltor/server/data/Stove.xml"/>
+  	   <mapper resource="gwt/rieltor/server/data/Toilet.xml"/>
+    </mappers>
+
+</configuration>
