@@ -12,17 +12,7 @@
 	    <result property="level" column="LEVEL"/>
 	    <result property="porch" column="PORCH"/>
 	    <result property="meters" column="METERS"/>
-	    <association property="house" javaType="House">
-	    	<result property="id" column="ID"/>	    
-		    <result property="adress" column="ADRESS"/>
-		    <result property="levels" column="LEVELS"/>
-		    <result property="builtYear" column="BUILT_YEAR"/>
-		    <result property="lastRepair" column="LAST_REPAIR"/>
-		    <association property="region" javaType="Region">
-		    	<result property="id" column="ID"/>
-		    	<result property="region" column="REGION"/>
-		    </association>
-	    </association>
+	    <association property="house" resultMap="houseResult"/>
 	    <association property="objectType" javaType="ObjectType">
 	    	<result property="id" column="ID"/>
 	    	<result property="type" column="TYPE"/>
@@ -48,42 +38,54 @@
 	    	<result property="type" column="TYPE"/>
 		</association>
     </resultMap>
+    
+    <resultMap id="houseResult" type="House">
+    	<result property="id" column="ID"/>	    
+	    <result property="adress" column="ADRESS"/>
+	    <result property="levels" column="LEVELS"/>
+	    <result property="builtYear" column="BUILT_YEAR"/>
+	    <result property="lastRepair" column="LAST_REPAIR"/>
+	    <association property="region" javaType="Region">
+	    	<result property="id" column="ID"/>
+	    	<result property="region" column="REGION"/>
+	    </association>
+    </resultMap>
 	
     <select id="getAll" resultMap="result">
-    	SELECT O.ID, 
-    	       O.ROOMS,
-    	       O.AREA,
-    	       O.LEVEL,
-    	       O.PORCH,
-    	       O.METERS,
-    	       H.ID,
-    	       H.ADRESS,
-    	       H.LEVELS,
-    	       H.BUILT_YEAR,
-    	       H.LAST_REPAIR,
-    	       R.ID,
-    	       R.REGION, 
-    	       OT.ID,
-    	       OT.TYPE,
-    	       B.ID,
-    	       B.TYPE,
-    	       T.ID,
-    	       T.TYPE,
-    	       HT.ID,
-    	       HT.TYPE,
-    	       S.ID,
-    	       S.TYPE,
-    	       OS.ID,
-    	       OS.TYPE
-    	  FROM OBJECT AS O
-    	  LEFT OUTER JOIN HOUSE AS H ON O.HOUSE_ID = H.ID
-    	  LEFT OUTER JOIN REGION AS R ON H.REGION_ID = R.ID
-    	  LEFT OUTER JOIN OBJECT_TYPE AS OT ON O.OBJECT_TYPE_ID = OT.ID
-    	  LEFT OUTER JOIN BALCONY AS B ON O.BALCONY_ID = B.ID
-    	  LEFT OUTER JOIN TOILET AS T ON O.TOILET_ID = T.ID
-    	  LEFT OUTER JOIN HEAT AS HT ON O.HEAT_ID = HT.ID
-    	  LEFT OUTER JOIN STOVE AS S ON O.STOVE_ID = S.ID
-    	  LEFT OUTER JOIN OBJECT_STATE AS OS ON O.OBJECT_STATE_ID = OS.ID;
+    	SELECT o.ID, 
+    	       o.ROOMS,
+    	       o.AREA,
+    	       o.LEVEL,
+    	       o.PORCH,
+    	       o.METERS,
+    	       h.ID,
+    	       h.ADRESS,
+    	       h.LEVELS,
+    	       h.BUILT_YEAR,
+    	       h.LAST_REPAIR,
+    	       r.ID,
+    	       r.REGION, 
+    	       ot.ID,
+    	       ot.TYPE,
+    	       b.ID,
+    	       b.TYPE,
+    	       t.ID,
+    	       t.TYPE,
+    	       ht.ID,
+    	       ht.TYPE,
+    	       s.ID,
+    	       s.TYPE,
+    	       os.ID,
+    	       os.TYPE
+    	  FROM OBJECT AS o
+    	  LEFT OUTER JOIN HOUSE AS h ON o.HOUSE_ID = h.ID
+    	  LEFT OUTER JOIN REGION AS r ON h.REGION_ID = r.ID
+    	  LEFT OUTER JOIN OBJECT_TYPE AS ot ON o.OBJECT_TYPE_ID = ot.ID
+    	  LEFT OUTER JOIN BALCONY AS b ON o.BALCONY_ID = b.ID
+    	  LEFT OUTER JOIN TOILET AS t ON o.TOILET_ID = t.ID
+    	  LEFT OUTER JOIN HEAT AS ht ON o.HEAT_ID = ht.ID
+    	  LEFT OUTER JOIN STOVE AS s ON o.STOVE_ID = s.ID
+    	  LEFT OUTER JOIN OBJECT_STATE AS os ON o.OBJECT_STATE_ID = os.ID;
     </select>
     
 </mapper>
