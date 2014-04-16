@@ -1,0 +1,13 @@
+.advertTable {
+  border: 2px solid #000000;
+}
+.advertTable .tableHeader {
+  background-color: grey;
+}
+.advertTable .selectedRow {
+  background-color: blue;
+  color: white;
+}
+h1 {
+  text-align: center;
+}

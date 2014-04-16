@@ -19,7 +19,7 @@ public class AdvertTable extends FlexTable
         this.setCellSpacing(0);
         this.setWidth("100%");
         this.setInput(input);
-        this.setStyleName("table");
+        this.setStyleName("advertTable");
     }
 
     public void setInput(AdvertDataSource input)

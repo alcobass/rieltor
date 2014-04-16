@@ -25,10 +25,17 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.xtext.ui.shared.xtextBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>com.google.gwt.eclipse.core.gwtNature</nature>
+		<nature>net.vtst.ow.eclipse.less.nature</nature>
+		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
+		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 	</natures>
 </projectDescription>
