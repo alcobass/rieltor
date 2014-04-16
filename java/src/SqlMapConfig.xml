@@ -6,6 +6,7 @@
 <configuration>
 
 	<typeAliases>
+		<typeAlias alias="Advert" type="gwt.rieltor.shared.Advert"/>
 		<typeAlias alias="AdvertType" type="gwt.rieltor.shared.AdvertType"/>
 		<typeAlias alias="Balcony" type="gwt.rieltor.shared.Balcony"/>
 		<typeAlias alias="Heat" type="gwt.rieltor.shared.Heat"/>
@@ -32,6 +33,7 @@
 	</environments>
 	
     <mappers>
+       <mapper resource="gwt/rieltor/server/data/Advert.xml"/>
   	   <mapper resource="gwt/rieltor/server/data/AdvertType.xml"/>
   	   <mapper resource="gwt/rieltor/server/data/Balcony.xml"/>
   	   <mapper resource="gwt/rieltor/server/data/Heat.xml"/>

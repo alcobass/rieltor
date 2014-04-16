@@ -3,15 +3,31 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ObjectData">
+<mapper namespace="Advert">
 	
-	<resultMap id="result" type="ObjectData">
+	<resultMap id="result" type="Advert">
 	    <result property="id" column="ID"/>
-	    <result property="rooms" column="ROOMS"/>
-	    <result property="area" column="AREA"/>
-	    <result property="level" column="LEVEL"/>
-	    <result property="porch" column="PORCH"/>
-	    <result property="meters" column="METERS"/>
+	    <result property="cost" column="COST"/>
+	    <result property="advertDate" column="ADVERT_DATE"/>
+	    <result property="communal" column="COMMUNAL"/>
+	    <association property="advertType" javaType="AdvertType" columnPrefix="ADV_TYPE_">
+	    	<result property="id" column="ID"/>
+	    	<result property="type" column="TYPE"/>
+	    </association>
+	    <association property="stateType" javaType="StateType" columnPrefix="ST_TYPE_">
+	    	<result property="id" column="ID"/>
+	    	<result property="type" column="TYPE"/>
+	    </association>
+	    <association property="object" resultMap="objectResult"/>	    
+    </resultMap>
+    
+    <resultMap id="objectResult" type="ObjectData">
+	    <result property="id" column="OBJECT_ID"/>
+	    <result property="rooms" column="OBJECT_ROOMS"/>
+	    <result property="area" column="OBJECT_AREA"/>
+	    <result property="level" column="OBJECT_LEVEL"/>
+	    <result property="porch" column="OBJECT_PORCH"/>
+	    <result property="meters" column="OBJECT_METERS"/>
 	    <association property="house" resultMap="houseResult"/>
 	    <association property="objectType" javaType="ObjectType" columnPrefix="OBJ_TYPE_">
 	    	<result property="id" column="ID"/>
@@ -50,14 +66,22 @@
 	    	<result property="region" column="REGION"/>
 	    </association>
     </resultMap>
-	
+    
     <select id="getAll" resultMap="result">
-    	SELECT o.ID, 
-    	       o.ROOMS,
-    	       o.AREA,
-    	       o.LEVEL,
-    	       o.PORCH,
-    	       o.METERS,
+    	SELECT a.ID,
+    		   a.COST,
+    		   a.ADVERT_DATE,
+    		   a.COMMUNAL,
+    		   at.ID AS ADV_TYPE_ID,
+    		   at.TYPE AS ADV_TYPE_TYPE,
+    		   st.ID AS ST_TYPE_ID,
+    		   st.TYPE AS ST_TYPE_TYPE,
+    		   o.ID AS OBJECT_ID, 
+    	       o.ROOMS AS OBJECT_ROOMS,
+    	       o.AREA AS OBJECT_AREA,
+    	       o.LEVEL AS OBJECT_LEVEL,
+    	       o.PORCH AS OBJECT_PORCH,
+    	       o.METERS AS OBJECT_METERS,
     	       h.ID AS HOUSE_ID,
     	       h.ADRESS AS HOUSE_ADRESS,
     	       h.LEVELS AS HOUSE_LEVELS,
@@ -77,7 +101,10 @@
     	       s.TYPE AS STOVE_TYPE,
     	       os.ID AS OBJ_ST_ID,
     	       os.TYPE AS OBJ_ST_TYPE
-    	  FROM OBJECT AS o
+    	  FROM ADVERT AS a
+    	  LEFT OUTER JOIN ADVERT_TYPE AS at ON a.TYPE_ID = at.ID
+    	  LEFT OUTER JOIN STATE_TYPE AS st ON a.STATE_ID = st.ID
+    	  LEFT OUTER JOIN OBJECT AS o ON a.OBJECT_ID = o.ID
     	  LEFT OUTER JOIN HOUSE AS h ON o.HOUSE_ID = h.ID
     	  LEFT OUTER JOIN REGION AS r ON h.REGION_ID = r.ID
     	  LEFT OUTER JOIN OBJECT_TYPE AS ot ON o.OBJECT_TYPE_ID = ot.ID

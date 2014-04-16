@@ -1,5 +1,6 @@
 package gwt.rieltor.client.service;
 
+import gwt.rieltor.shared.Advert;
 import gwt.rieltor.shared.AdvertType;
 import gwt.rieltor.shared.Balcony;
 import gwt.rieltor.shared.Heat;
@@ -43,5 +44,7 @@ public interface RieltorServiceAsync {
     void getAllHouse(AsyncCallback<List<House>> callback);
 
     void getAllObject(AsyncCallback<List<ObjectData>> callback);
+
+    void getAllAdvert(AsyncCallback<List<Advert>> callback);
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+import gwt.rieltor.shared.Advert;
 import gwt.rieltor.shared.AdvertType;
 import gwt.rieltor.shared.House;
 import gwt.rieltor.shared.ObjectType;
@@ -35,4 +36,5 @@ public interface RieltorService extends RemoteService {
     HashMap <String, Object> LoadData();
     List<House> getAllHouse();
     List<ObjectData> getAllObject();
+    List<Advert> getAllAdvert();
 } 

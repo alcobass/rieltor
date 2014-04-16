@@ -11,6 +11,7 @@ import com.google.gwt.user.client.rpc.ServiceDefTarget;
 
 import gwt.rieltor.client.service.RieltorService;
 import gwt.rieltor.client.service.RieltorServiceAsync;
+import gwt.rieltor.shared.Advert;
 import gwt.rieltor.shared.AdvertType;
 import gwt.rieltor.shared.ObjectType;
 import gwt.rieltor.shared.Balcony;
@@ -42,8 +43,11 @@ public class RieltorAgency  implements EntryPoint {
         ServiceDefTarget serviceDef = (ServiceDefTarget) rieltorService;
         serviceDef.setServiceEntryPoint(GWT.getModuleBaseURL() + "rieltorService");
         
-        rieltorService.LoadData(new AsyncCallback<HashMap<String,Object>>() {
-            
+        LoadData();
+        
+    }
+    private void LoadData() {        
+        rieltorService.LoadData(new AsyncCallback<HashMap<String,Object>>() {            
             @Override
             public void onFailure(Throwable caught) {
                 // TODO Auto-generated method stub
@@ -98,6 +102,18 @@ public class RieltorAgency  implements EntryPoint {
                 Window.alert("Object loaded");
             }            
         });
-    }
+        rieltorService.getAllAdvert(new AsyncCallback<List<Advert>>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                // TODO Auto-generated method stub
+                Window.alert(caught.getMessage());
+            }
 
+            @Override
+            public void onSuccess(List<Advert> result) {
+                // TODO Auto-generated method stub
+                Window.alert("Advert loaded");
+            }
+        });
+    }
 }

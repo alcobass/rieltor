@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import gwt.rieltor.server.dao.AdvertDAO;
 import gwt.rieltor.server.dao.AdvertTypeDAO;
 import gwt.rieltor.server.dao.BalconyDAO;
 import gwt.rieltor.server.dao.HeatDAO;
@@ -17,6 +18,7 @@ import gwt.rieltor.server.dao.RegionDAO;
 import gwt.rieltor.server.dao.StateTypeDAO;
 import gwt.rieltor.server.dao.StoveDAO;
 import gwt.rieltor.server.dao.ToiletDAO;
+import gwt.rieltor.shared.Advert;
 import gwt.rieltor.shared.AdvertType;
 import gwt.rieltor.shared.Balcony;
 import gwt.rieltor.shared.Heat;
@@ -36,6 +38,7 @@ public class RieltorServiceImpl extends RemoteServiceServlet implements
 
     private static final long serialVersionUID = 1L;
     
+    private static AdvertDAO advertDAO;
     private static AdvertTypeDAO advertTypeDAO;
     private static BalconyDAO balconyDAO;
     private static HeatDAO heatDAO;
@@ -49,6 +52,7 @@ public class RieltorServiceImpl extends RemoteServiceServlet implements
     private static ToiletDAO toiletDAO;
 
     public RieltorServiceImpl() {
+        advertDAO = new AdvertDAO();
         advertTypeDAO = new AdvertTypeDAO();
         balconyDAO = new BalconyDAO();
         heatDAO = new HeatDAO();
@@ -86,6 +90,11 @@ public class RieltorServiceImpl extends RemoteServiceServlet implements
     public List<ObjectData> getAllObject() {
         List<ObjectData> objects = new ArrayList<ObjectData>();
         objects = objectDataDAO.selectAll();
+        return objects;
+    }
+    public List<Advert> getAllAdvert() {
+        List<Advert> objects = new ArrayList<Advert>();
+        objects = advertDAO.selectAll();
         return objects;
     }
 
