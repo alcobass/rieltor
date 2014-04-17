@@ -13,15 +13,42 @@ h1 {
 }
 .dialog {
   background-color: #f0f0f0;
+  border: 3px solid #660066;
+}
+.dialog .Caption {
+  background-color: #660066;
+  color: white;
+  text-align: center;
+}
+.dialog .vPanel {
+  padding: 5px;
 }
 .dialog .dropBox {
   width: 180px;
+  border: 2px solid #e6e6e6;
+}
+.dialog .dropBox:focus {
+  border: 2px solid #660066;
+}
+.dialog .disclosurePanel .header {
+  text-decoration: none;
+  /* Remove underline from header */
+
+  color: black;
+  cursor: pointer;
 }
 .dialog .disclosurePanel .content {
-  border-left: 3px solid #e7e7e7;
+  border-left: 3px solid #d2d2d2;
   padding: 4px 0px 4px 8px;
   margin-left: 6px;
 }
-.dialog .disclosurePanel .content .dropBox {
+.dialog .disclosurePanel .dropBox {
   width: 150px;
+}
+.dialog input {
+  width: 80px;
+  border: 2px solid #e6e6e6;
+}
+.dialog input:focus {
+  border: 2px solid #660066;
 }

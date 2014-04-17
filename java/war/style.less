@@ -1,3 +1,6 @@
+@colorFirst: #F0F0F0;
+@colorFirstDark: @colorFirst - 20;
+@colorSecond: #660066;
 @tableBorderSize: 2px;
 @tableBorderColor: #000000;
 .advertTable {
@@ -15,18 +18,44 @@ h1 {
 	text-align: center;
 }
 
-@dialogBackground: #F0F0F0;
 .dialog {
-	background-color: @dialogBackground;
+	background-color: @colorFirst - 30;
+	border: 3px solid @colorSecond;
+	.Caption {
+		background-color: @colorSecond;
+		color: white;
+		text-align: center;
+	}
+	.vPanel {
+		padding: 5px;
+	}
 	.dropBox {
 		width: 180px;
+		border: 2px solid (@colorFirst - 10);
+		&:focus {
+			border: 2px solid @colorSecond;
+		}
 	}
-	.disclosurePanel .content {
-		border-left: 3px solid #e7e7e7;
-  		padding: 4px 0px 4px 8px;
-		margin-left: 6px;
+	.disclosurePanel {
+		.header {
+			text-decoration: none;  /* Remove underline from header */
+		  	color: black; 
+		  	cursor: pointer;
+		}
+		.content {
+			border-left: 3px solid (@colorFirstDark - 10);		
+	  		padding: 4px 0px 4px 8px;
+			margin-left: 6px;
+		}
 		.dropBox {
 			width: 150px;
 		}
 	}
+	input {
+		width: 80px;
+		border: 2px solid (@colorFirst - 10);
+		&:focus {
+			border: 2px solid @colorSecond;
+		}
+	}	
 }

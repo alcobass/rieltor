@@ -20,6 +20,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.DisclosurePanel;
 import com.google.gwt.user.client.ui.SuggestBox;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.CheckBox;
 
 import gwt.rieltor.client.service.RieltorService;
 import gwt.rieltor.client.service.RieltorServiceAsync;
@@ -153,6 +155,7 @@ public class RieltorAgency  implements EntryPoint {
         
         // Основной контент
         VerticalPanel mainVPanel = new VerticalPanel();
+        mainVPanel.setStyleName("vPanel");
         
         Label labelTA = new Label("Тип объявления:");
         labelTA.setStyleName("label");
@@ -180,22 +183,136 @@ public class RieltorAgency  implements EntryPoint {
         houseVPanel.add(labelAdr);
         houseVPanel.add(sugBoxAdress);
         
+        Label labelLs = new Label("Этажей:");
+        labelLs.setStyleName("label");
+        TextBox textBoxLs = new TextBox();
+        houseVPanel.add(labelLs);
+        houseVPanel.add(textBoxLs);
+        Label labelBY = new Label("Год постройки:");
+        labelBY.setStyleName("label");
+        TextBox textBoxBY = new TextBox();
+        houseVPanel.add(labelBY);
+        houseVPanel.add(textBoxBY);
+        Label labelLR = new Label("Последний ремонт:");
+        labelLR.setStyleName("label");
+        TextBox textBoxLR = new TextBox();
+        houseVPanel.add(labelLR);
+        houseVPanel.add(textBoxLR);
+        
         houseAPanel.setContent(houseVPanel);
         mainVPanel.add(houseAPanel);
         
-        // Сворачиваемая панель объекта
-        VerticalPanel objectVPanel = new VerticalPanel();
-        DisclosurePanel objectAPanel = new DisclosurePanel("Информация об объекте");
-        objectAPanel.setAnimationEnabled(true);
-        objectAPanel.setStyleName("disclosurePanel");
+        // Основной контент
         Label labelOT = new Label("Тип объекта:");
         labelOT.setStyleName("label");
         final ListBox dropBoxOT = new ListBox(false);
         dropBoxOT.setStyleName("dropBox");
-        objectVPanel.add(labelOT);
-        objectVPanel.add(dropBoxOT);
-        objectAPanel.setContent(objectVPanel);
-        mainVPanel.add(objectAPanel);
+        mainVPanel.add(labelOT);
+        mainVPanel.add(dropBoxOT);
+        
+        VerticalPanel paramsVPanel = new VerticalPanel();
+        paramsVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
+        paramsVPanel.setWidth("100%");
+        HorizontalPanel roomsHPanel = new HorizontalPanel();
+        roomsHPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
+        Label labelRs = new Label("Комнат:");
+        labelRs.setStyleName("label");
+        TextBox textBoxRs = new TextBox();
+        roomsHPanel.add(labelRs);
+        roomsHPanel.add(textBoxRs);
+        paramsVPanel.add(roomsHPanel);
+        HorizontalPanel areaHPanel = new HorizontalPanel();
+        areaHPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
+        Label labelA = new Label("Площадь:");
+        labelA.setStyleName("label");
+        TextBox textBoxA = new TextBox();
+        areaHPanel.add(labelA);
+        areaHPanel.add(textBoxA);
+        paramsVPanel.add(areaHPanel);
+        HorizontalPanel costHPanel = new HorizontalPanel();
+        costHPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
+        Label labelC = new Label("Цена:");
+        labelC.setStyleName("label");
+        TextBox textBoxC = new TextBox();
+        costHPanel.add(labelC);
+        costHPanel.add(textBoxC);
+        paramsVPanel.add(costHPanel);
+        mainVPanel.add(paramsVPanel);
+        
+        Label labelOS = new Label("Состояние объекта:");
+        labelOS.setStyleName("label");
+        final ListBox dropBoxOS = new ListBox(false);
+        dropBoxOS.setStyleName("dropBox");
+        mainVPanel.add(labelOS);
+        mainVPanel.add(dropBoxOS);
+        CheckBox commulCheck = new CheckBox("С четом коммуналки");
+        mainVPanel.add(commulCheck);
+        
+        // Сворачиваемая панель дополнительных параметров
+        VerticalPanel advanceVPanel = new VerticalPanel();
+        DisclosurePanel advanceAPanel = new DisclosurePanel("Дополнительно");
+        advanceAPanel.setAnimationEnabled(true);
+        advanceAPanel.setStyleName("disclosurePanel");
+        
+        Label labelB = new Label("Балкон:");
+        labelB.setStyleName("label");
+        final ListBox dropBoxB = new ListBox(false);
+        dropBoxB.setStyleName("dropBox");
+        advanceVPanel.add(labelB);
+        advanceVPanel.add(dropBoxB);
+        Label labelT = new Label("Туалет:");
+        labelT.setStyleName("label");
+        final ListBox dropBoxT = new ListBox(false);
+        dropBoxT.setStyleName("dropBox");
+        advanceVPanel.add(labelT);
+        advanceVPanel.add(dropBoxT);
+        Label labelH = new Label("Отопление:");
+        labelH.setStyleName("label");
+        final ListBox dropBoxH = new ListBox(false);
+        dropBoxH.setStyleName("dropBox");
+        advanceVPanel.add(labelH);
+        advanceVPanel.add(dropBoxH);
+        Label labelS = new Label("Плита:");
+        labelS.setStyleName("label");
+        final ListBox dropBoxS = new ListBox(false);
+        dropBoxS.setStyleName("dropBox");
+        advanceVPanel.add(labelS);
+        advanceVPanel.add(dropBoxS);
+        CheckBox metersCheck = new CheckBox("Счетчики");
+        advanceVPanel.add(metersCheck);
+        
+        advanceAPanel.setContent(advanceVPanel);
+        mainVPanel.add(advanceAPanel);
+        
+        // Загрузка данных в элементы        
+        for (AdvertType advertType : advertTypes) {
+            dropBoxTA.addItem(advertType.getType());
+        }
+        for (Region region : regions) {
+            dropBoxReg.addItem(region.getRegionName());
+        }
+        for (ObjectType objectType : objectTypes) {
+            dropBoxOT.addItem(objectType.getType());
+        }
+        for (ObjectState objectState : objectStates) {
+            dropBoxOS.addItem(objectState.getType());
+        }
+        dropBoxB.addItem("Не указано");
+        for (Balcony balcony : balconies) {
+            dropBoxB.addItem(balcony.getType());
+        }
+        dropBoxT.addItem("Не указано");
+        for (Toilet toilet : toilets) {
+            dropBoxT.addItem(toilet.getType());
+        }
+        dropBoxH.addItem("Не указано");
+        for (Heat heat : heats) {
+            dropBoxH.addItem(heat.getType());
+        }
+        dropBoxS.addItem("Не указано");
+        for (Stove stove : stoves) {
+            dropBoxS.addItem(stove.getType());
+        }
         
         Button closeButton = new Button();
         closeButton.setText("Отмена");
