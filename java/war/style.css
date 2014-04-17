@@ -11,3 +11,17 @@
 h1 {
   text-align: center;
 }
+.dialog {
+  background-color: #f0f0f0;
+}
+.dialog .dropBox {
+  width: 180px;
+}
+.dialog .disclosurePanel .content {
+  border-left: 3px solid #e7e7e7;
+  padding: 4px 0px 4px 8px;
+  margin-left: 6px;
+}
+.dialog .disclosurePanel .content .dropBox {
+  width: 150px;
+}

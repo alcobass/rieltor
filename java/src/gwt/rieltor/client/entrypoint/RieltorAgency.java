@@ -5,13 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.DisclosurePanel;
+import com.google.gwt.user.client.ui.SuggestBox;
 
 import gwt.rieltor.client.service.RieltorService;
 import gwt.rieltor.client.service.RieltorServiceAsync;
@@ -86,12 +94,19 @@ public class RieltorAgency  implements EntryPoint {
                     }        
                     @Override
                     public void onSuccess(List<Advert> result) {
-                        // TODO Auto-generated method stub
+                        // Создание таблицы объявлений
                         AdvertDataSource source = new AdvertDataSource(result);
                         tableAdvert = new AdvertTable(source);
+                        // Добавление VerticalPanel
+                        VerticalPanel mainVPanel = new VerticalPanel();
+                        mainVPanel.setWidth("100%");
+                        mainVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
+                        // Добавление DocPanel на Vertical Panel
                         DockPanel docPanel = new DockPanel();
                         docPanel = CreateDockPanel();
-                        RootPanel.get().add(docPanel);
+                        mainVPanel.add(docPanel);
+                        
+                        RootPanel.get().add(mainVPanel);
                     }
                 });                
             }
@@ -99,14 +114,100 @@ public class RieltorAgency  implements EntryPoint {
     }
     private DockPanel CreateDockPanel() {        
         DockPanel docPanel = new DockPanel();
-        docPanel.add(tableAdvert, DockPanel.CENTER);
         
-        VerticalPanel vPanelLeft = new VerticalPanel();
+        // Северное поле
+        HorizontalPanel hPanelNorth = new HorizontalPanel();
+        Button addAdvertButton = new Button();
+        addAdvertButton.setText("Добавить объявление");
+        addAdvertButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                // Create the dialog box
+                final DialogBox dialogBox = CreateAddAdvertDialog();
+                dialogBox.setGlassEnabled(true);
+                dialogBox.setAnimationEnabled(true);
+                dialogBox.setStyleName("dialog");
+                dialogBox.center();
+                dialogBox.show();
+            }
+        });
+        hPanelNorth.add(addAdvertButton);
+        docPanel.add(hPanelNorth, DockPanel.NORTH);
+        
+        // Западное поле
+        VerticalPanel vPanelWest = new VerticalPanel();
         Button searchButton = new Button();
         searchButton.setText("Поиск");
-        vPanelLeft.add(searchButton);
-        docPanel.add(vPanelLeft, DockPanel.WEST);
+        vPanelWest.add(searchButton);
+        docPanel.add(vPanelWest, DockPanel.WEST);
         
+        // Центральное поле
+        docPanel.add(tableAdvert, DockPanel.CENTER);  
+                         
         return docPanel;
+    }
+    
+    private DialogBox CreateAddAdvertDialog() {
+        final DialogBox dialog = new DialogBox();
+        dialog.setText("Добавление объявления");
+        
+        // Основной контент
+        VerticalPanel mainVPanel = new VerticalPanel();
+        
+        Label labelTA = new Label("Тип объявления:");
+        labelTA.setStyleName("label");
+        final ListBox dropBoxTA = new ListBox(false);
+        dropBoxTA.setStyleName("dropBox");
+        mainVPanel.add(labelTA);
+        mainVPanel.add(dropBoxTA);
+        
+        // Сворачиваемая панель Дома
+        VerticalPanel houseVPanel = new VerticalPanel();
+        DisclosurePanel houseAPanel = new DisclosurePanel("Информация о доме");
+        houseAPanel.setAnimationEnabled(true); 
+        houseAPanel.setStyleName("disclosurePanel");
+        Label labelReg = new Label("Район:");
+        labelReg.setStyleName("label");
+        final ListBox dropBoxReg = new ListBox(false);
+        dropBoxReg.setStyleName("dropBox");
+        houseVPanel.add(labelReg);
+        houseVPanel.add(dropBoxReg);
+        
+        Label labelAdr = new Label("Адрес:");
+        labelAdr.setStyleName("label");
+        SuggestBox sugBoxAdress = new SuggestBox();
+        sugBoxAdress.setStyleName("suggestBox");
+        houseVPanel.add(labelAdr);
+        houseVPanel.add(sugBoxAdress);
+        
+        houseAPanel.setContent(houseVPanel);
+        mainVPanel.add(houseAPanel);
+        
+        // Сворачиваемая панель объекта
+        VerticalPanel objectVPanel = new VerticalPanel();
+        DisclosurePanel objectAPanel = new DisclosurePanel("Информация об объекте");
+        objectAPanel.setAnimationEnabled(true);
+        objectAPanel.setStyleName("disclosurePanel");
+        Label labelOT = new Label("Тип объекта:");
+        labelOT.setStyleName("label");
+        final ListBox dropBoxOT = new ListBox(false);
+        dropBoxOT.setStyleName("dropBox");
+        objectVPanel.add(labelOT);
+        objectVPanel.add(dropBoxOT);
+        objectAPanel.setContent(objectVPanel);
+        mainVPanel.add(objectAPanel);
+        
+        Button closeButton = new Button();
+        closeButton.setText("Отмена");
+        closeButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                dialog.hide();
+            }
+        });
+        mainVPanel.add(closeButton);
+        
+        dialog.setWidget(mainVPanel);
+        return dialog;
     }
 }
