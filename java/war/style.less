@@ -17,7 +17,14 @@
 h1 {
 	text-align: center;
 }
-
+.gwt-SuggestBoxPopup {
+	background: white;
+	border: 2px solid @colorSecond;
+	.item-selected {
+	  background: @colorSecond;
+	  color: white;
+	}
+}
 .dialog {
 	background-color: @colorFirst - 30;
 	border: 3px solid @colorSecond;
@@ -28,14 +35,7 @@ h1 {
 	}
 	.vPanel {
 		padding: 5px;
-	}
-	.dropBox {
-		width: 180px;
-		border: 2px solid (@colorFirst - 10);
-		&:focus {
-			border: 2px solid @colorSecond;
-		}
-	}
+	}	
 	.disclosurePanel {
 		.header {
 			text-decoration: none;  /* Remove underline from header */
@@ -43,13 +43,19 @@ h1 {
 		  	cursor: pointer;
 		}
 		.content {
-			border-left: 3px solid (@colorFirstDark - 10);		
+			border-left: 3px solid @colorSecond;		
 	  		padding: 4px 0px 4px 8px;
 			margin-left: 6px;
 		}
 		.dropBox {
-			width: 150px;
+			width: 200px;
 		}
+		.suggestBox {
+			width: 200px;
+			&:focus {
+				border: 2px solid @colorSecond;
+			}
+		}		
 	}
 	input {
 		width: 80px;
@@ -58,4 +64,18 @@ h1 {
 			border: 2px solid @colorSecond;
 		}
 	}	
+}
+.dropBox {
+	width: 250px;
+	option {
+		background: white;
+		color: black;
+		&:hover {
+			background: @colorSecond;
+		 	color: white;
+		 	}
+	}
+	&:focus {
+		border: 2px solid @colorSecond;
+	}
 }

@@ -5,12 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -22,6 +30,7 @@ import com.google.gwt.user.client.ui.DisclosurePanel;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.CheckBox;
+import com.google.gwt.user.client.ui.Widget;
 
 import gwt.rieltor.client.service.RieltorService;
 import gwt.rieltor.client.service.RieltorServiceAsync;
@@ -149,6 +158,7 @@ public class RieltorAgency  implements EntryPoint {
         return docPanel;
     }
     
+    @SuppressWarnings("deprecation")
     private DialogBox CreateAddAdvertDialog() {
         final DialogBox dialog = new DialogBox();
         dialog.setText("Добавление объявления");
@@ -178,8 +188,9 @@ public class RieltorAgency  implements EntryPoint {
         
         Label labelAdr = new Label("Адрес:");
         labelAdr.setStyleName("label");
-        SuggestBox sugBoxAdress = new SuggestBox();
-        sugBoxAdress.setStyleName("suggestBox");
+        final MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
+        final SuggestBox sugBoxAdress = new SuggestBox(oracle);
+        sugBoxAdress.setStyleName("suggestBox");        
         houseVPanel.add(labelAdr);
         houseVPanel.add(sugBoxAdress);
         
@@ -313,6 +324,30 @@ public class RieltorAgency  implements EntryPoint {
         for (Stove stove : stoves) {
             dropBoxS.addItem(stove.getType());
         }
+        
+        // Обработка событий
+        sugBoxAdress.addKeyUpHandler(new KeyUpHandler() {            
+            @Override
+            public void onKeyUp(KeyUpEvent event) {
+                // TODO Auto-generated method stub
+                String nearWord = sugBoxAdress.getText();
+                rieltorService.getTop10Adress(nearWord, new AsyncCallback<List<String>>() {
+                    @Override
+                    public void onFailure(Throwable caught) {
+                        // TODO Auto-generated method stub
+                        Window.alert(caught.getMessage());
+                    }
+                    @Override
+                    public void onSuccess(List<String> result) {
+                        // TODO Auto-generated method stub
+                        oracle.clear();
+                        for(int i = 0; i < result.size(); i++) {
+                            oracle.add(result.get(i));
+                        }                  
+                    }
+                });
+            }
+        });
         
         Button closeButton = new Button();
         closeButton.setText("Отмена");

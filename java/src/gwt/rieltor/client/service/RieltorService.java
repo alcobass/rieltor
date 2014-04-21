@@ -37,4 +37,5 @@ public interface RieltorService extends RemoteService {
     List<House> getAllHouse();
     List<ObjectData> getAllObject();
     List<Advert> getAllAdvert();
+    List<String> getTop10Adress(String nearWord);
 } 

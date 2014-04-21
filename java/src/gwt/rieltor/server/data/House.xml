@@ -29,5 +29,12 @@
     	  LEFT OUTER JOIN REGION AS R 
     	  ON H.REGION_ID = R.ID;
     </select>
+    <select id="getAdressNearWord" parameterType="string" resultType="string">
+    	SELECT h.ADRESS	       
+    	  FROM HOUSE AS h
+    	  WHERE h.ADRESS
+    	  LIKE CONCAT('%', #{nearWWord}, '%')
+    	  LIMIT 10;
+    </select>
     
 </mapper>

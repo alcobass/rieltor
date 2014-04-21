@@ -97,6 +97,11 @@ public class RieltorServiceImpl extends RemoteServiceServlet implements
         objects = advertDAO.selectAll();
         return objects;
     }
+    public List<String> getTop10Adress(String nearWord) {
+        List<String> adreses = new ArrayList<String>();
+        adreses = houseDAO.selectAdressNearWord(nearWord);
+        return adreses;
+    }
 
     @Override
     public ArrayList<AdvertType> getAllAdvertType() {

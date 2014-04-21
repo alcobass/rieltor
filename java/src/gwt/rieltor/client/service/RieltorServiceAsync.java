@@ -47,4 +47,6 @@ public interface RieltorServiceAsync {
 
     void getAllAdvert(AsyncCallback<List<Advert>> callback);
 
+    void getTop10Adress(String nearWord, AsyncCallback<List<String>> callback);
+
 }

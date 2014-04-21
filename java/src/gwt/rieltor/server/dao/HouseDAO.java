@@ -32,4 +32,14 @@ public class HouseDAO {
             session.close();
         }
     }
+    public List<String> selectAdressNearWord(String nearWord){
+
+        SqlSession session = sqlSessionFactory.openSession();
+        try {
+            List<String> list = session.selectList("House.getAdressNearWord", nearWord);
+            return list;
+        } finally {
+            session.close();
+        }
+    }
 }

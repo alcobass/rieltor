@@ -11,8 +11,16 @@
 h1 {
   text-align: center;
 }
+.gwt-SuggestBoxPopup {
+  background: white;
+  border: 2px solid #660066;
+}
+.gwt-SuggestBoxPopup .item-selected {
+  background: #660066;
+  color: white;
+}
 .dialog {
-  background-color: #f0f0f0;
+  background-color: #d2d2d2;
   border: 3px solid #660066;
 }
 .dialog .Caption {
@@ -23,13 +31,6 @@ h1 {
 .dialog .vPanel {
   padding: 5px;
 }
-.dialog .dropBox {
-  width: 180px;
-  border: 2px solid #e6e6e6;
-}
-.dialog .dropBox:focus {
-  border: 2px solid #660066;
-}
 .dialog .disclosurePanel .header {
   text-decoration: none;
   /* Remove underline from header */
@@ -38,17 +39,37 @@ h1 {
   cursor: pointer;
 }
 .dialog .disclosurePanel .content {
-  border-left: 3px solid #d2d2d2;
+  border-left: 3px solid #660066;
   padding: 4px 0px 4px 8px;
   margin-left: 6px;
 }
 .dialog .disclosurePanel .dropBox {
-  width: 150px;
+  width: 200px;
+}
+.dialog .disclosurePanel .suggestBox {
+  width: 200px;
+}
+.dialog .disclosurePanel .suggestBox:focus {
+  border: 2px solid #660066;
 }
 .dialog input {
   width: 80px;
   border: 2px solid #e6e6e6;
 }
 .dialog input:focus {
+  border: 2px solid #660066;
+}
+.dropBox {
+  width: 250px;
+}
+.dropBox option {
+  background: white;
+  color: black;
+}
+.dropBox option:hover {
+  background: #660066;
+  color: white;
+}
+.dropBox:focus {
   border: 2px solid #660066;
 }
