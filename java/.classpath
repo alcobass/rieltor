@@ -3,5 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/mybatis-3.2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/MySQL/MySQL Connector J/mysql-connector-java-5.1.30-bin.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

@@ -69,13 +69,11 @@ public class RieltorAgency  implements EntryPoint {
         ServiceDefTarget serviceDef = (ServiceDefTarget) rieltorService;
         serviceDef.setServiceEntryPoint(GWT.getModuleBaseURL() + "rieltorService");
         rieltorService.LoadData(new AsyncCallback<HashMap<String,Object>>() {            
-            @Override
             public void onFailure(Throwable caught) {
                 // TODO Auto-generated method stub
                 Window.alert("Fail to load data." + caught.getMessage());
             }
             @SuppressWarnings("unchecked")
-            @Override
             public void onSuccess(HashMap<String, Object> result) {
                 // TODO Auto-generated method stub
                 advertTypes = new ArrayList<AdvertType>();
@@ -98,21 +96,19 @@ public class RieltorAgency  implements EntryPoint {
                 toilets = (List<Toilet>) result.get("toilet");
                 
                 rieltorService.getAllAdvert(new AsyncCallback<List<Advert>>() {
-                    @Override
                     public void onFailure(Throwable caught) {
                         // TODO Auto-generated method stub
                         Window.alert(caught.getMessage());
                     }        
-                    @Override
                     public void onSuccess(List<Advert> result) {
-                        // Создание таблицы объявлений
+                        // �������� �������� �������
                         AdvertDataSource source = new AdvertDataSource(result);
                         tableAdvert = new AdvertTable(source);
-                        // Добавление VerticalPanel
+                        // �������� ������� ������������ ������
                         VerticalPanel mainVPanel = new VerticalPanel();
                         mainVPanel.setWidth("100%");
                         mainVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
-                        // Добавление DocPanel на Vertical Panel
+                        // ���������� DocPanel �� Vertical Panel
                         DockPanel docPanel = new DockPanel();
                         docPanel = CreateDockPanel();
                         mainVPanel.add(docPanel);
@@ -126,12 +122,11 @@ public class RieltorAgency  implements EntryPoint {
     private DockPanel CreateDockPanel() {        
         DockPanel docPanel = new DockPanel();
         
-        // Северное поле
+        // ������ �������� ����
         HorizontalPanel hPanelNorth = new HorizontalPanel();
         Button addAdvertButton = new Button();
         addAdvertButton.setText("Добавить объявление");
         addAdvertButton.addClickHandler(new ClickHandler() {
-            @Override
             public void onClick(ClickEvent event) {
                 // Create the dialog box
                 final DialogBox dialogBox = CreateAddAdvertDialog();
@@ -145,14 +140,14 @@ public class RieltorAgency  implements EntryPoint {
         hPanelNorth.add(addAdvertButton);
         docPanel.add(hPanelNorth, DockPanel.NORTH);
         
-        // Западное поле
+        // �������� ����
         VerticalPanel vPanelWest = new VerticalPanel();
         Button searchButton = new Button();
         searchButton.setText("Поиск");
         vPanelWest.add(searchButton);
         docPanel.add(vPanelWest, DockPanel.WEST);
         
-        // Центральное поле
+        // ����������� ����
         docPanel.add(tableAdvert, DockPanel.CENTER);  
                          
         return docPanel;
@@ -163,7 +158,7 @@ public class RieltorAgency  implements EntryPoint {
         final DialogBox dialog = new DialogBox();
         dialog.setText("Добавление объявления");
         
-        // Основной контент
+        // ������� ������������ ������
         VerticalPanel mainVPanel = new VerticalPanel();
         mainVPanel.setStyleName("vPanel");
         
@@ -174,7 +169,7 @@ public class RieltorAgency  implements EntryPoint {
         mainVPanel.add(labelTA);
         mainVPanel.add(dropBoxTA);
         
-        // Сворачиваемая панель Дома
+        // ���������� � ����
         VerticalPanel houseVPanel = new VerticalPanel();
         DisclosurePanel houseAPanel = new DisclosurePanel("Информация о доме");
         houseAPanel.setAnimationEnabled(true); 
@@ -213,7 +208,7 @@ public class RieltorAgency  implements EntryPoint {
         houseAPanel.setContent(houseVPanel);
         mainVPanel.add(houseAPanel);
         
-        // Основной контент
+        // �������� ���������
         Label labelOT = new Label("Тип объекта:");
         labelOT.setStyleName("label");
         final ListBox dropBoxOT = new ListBox(false);
@@ -256,10 +251,10 @@ public class RieltorAgency  implements EntryPoint {
         dropBoxOS.setStyleName("dropBox");
         mainVPanel.add(labelOS);
         mainVPanel.add(dropBoxOS);
-        CheckBox commulCheck = new CheckBox("С четом коммуналки");
+        CheckBox commulCheck = new CheckBox("с четом коммуналки");
         mainVPanel.add(commulCheck);
         
-        // Сворачиваемая панель дополнительных параметров
+        // �������������� ���������
         VerticalPanel advanceVPanel = new VerticalPanel();
         DisclosurePanel advanceAPanel = new DisclosurePanel("Дополнительно");
         advanceAPanel.setAnimationEnabled(true);
@@ -289,13 +284,13 @@ public class RieltorAgency  implements EntryPoint {
         dropBoxS.setStyleName("dropBox");
         advanceVPanel.add(labelS);
         advanceVPanel.add(dropBoxS);
-        CheckBox metersCheck = new CheckBox("Счетчики");
+        CheckBox metersCheck = new CheckBox("счетчики");
         advanceVPanel.add(metersCheck);
         
         advanceAPanel.setContent(advanceVPanel);
         mainVPanel.add(advanceAPanel);
         
-        // Загрузка данных в элементы        
+        // �������� ��������
         for (AdvertType advertType : advertTypes) {
             dropBoxTA.addItem(advertType.getType());
         }
@@ -325,19 +320,16 @@ public class RieltorAgency  implements EntryPoint {
             dropBoxS.addItem(stove.getType());
         }
         
-        // Обработка событий
+        // ��������� ������
         sugBoxAdress.addKeyUpHandler(new KeyUpHandler() {            
-            @Override
             public void onKeyUp(KeyUpEvent event) {
                 // TODO Auto-generated method stub
                 String nearWord = sugBoxAdress.getText();
                 rieltorService.getTop10Adress(nearWord, new AsyncCallback<List<String>>() {
-                    @Override
                     public void onFailure(Throwable caught) {
                         // TODO Auto-generated method stub
                         Window.alert(caught.getMessage());
                     }
-                    @Override
                     public void onSuccess(List<String> result) {
                         // TODO Auto-generated method stub
                         oracle.clear();
@@ -349,10 +341,13 @@ public class RieltorAgency  implements EntryPoint {
             }
         });
         
+        Button addButton = new Button();
+        addButton.setText("Добавить");
+        mainVPanel.add(addButton);
+        
         Button closeButton = new Button();
         closeButton.setText("Отмена");
         closeButton.addClickHandler(new ClickHandler() {
-            @Override
             public void onClick(ClickEvent event) {
                 dialog.hide();
             }

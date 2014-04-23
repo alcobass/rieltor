@@ -66,7 +66,6 @@ public class RieltorServiceImpl extends RemoteServiceServlet implements
         toiletDAO = new ToiletDAO();
     }
     
-    @Override
     public HashMap<String, Object> LoadData() {
         // TODO Auto-generated method stub
         HashMap<String, Object> loadMap = new HashMap<String, Object>();
@@ -103,55 +102,46 @@ public class RieltorServiceImpl extends RemoteServiceServlet implements
         return adreses;
     }
 
-    @Override
     public ArrayList<AdvertType> getAllAdvertType() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @Override
     public ArrayList<Balcony> getAllBalcony() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @Override
     public ArrayList<Heat> getAllHeat() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @Override
     public ArrayList<ObjectState> getAllObjectState() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @Override
     public ArrayList<ObjectType> getAllObjectType() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @Override
     public ArrayList<Region> getAllRegion() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @Override
     public ArrayList<StateType> getAllStateType() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @Override
     public ArrayList<Stove> getAllStove() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @Override
     public ArrayList<Toilet> getAllToilet() {
         // TODO Auto-generated method stub
         return null;
