@@ -18,16 +18,16 @@
     </resultMap>
 	
     <select id="getAll" resultMap="result">
-    	SELECT H.ID, 
-    	       H.ADRESS,
-    	       H.LEVELS,
-    	       H.BUILT_YEAR,
-    	       H.LAST_REPAIR,
-    	       R.ID,
-    	       R.REGION 	       
-    	  FROM HOUSE AS H
-    	  LEFT OUTER JOIN REGION AS R 
-    	  ON H.REGION_ID = R.ID;
+    	SELECT h.ID, 
+    	       h.ADRESS,
+    	       h.LEVELS,
+    	       h.BUILT_YEAR,
+    	       h.LAST_REPAIR,
+    	       r.ID,
+    	       r.REGION 	       
+    	  FROM HOUSE AS h
+    	  LEFT OUTER JOIN REGION AS r 
+    	  ON h.REGION_ID = r.ID;
     </select>
     <select id="getAdressNearWord" parameterType="string" resultType="string">
     	SELECT h.ADRESS	       
@@ -36,5 +36,17 @@
     	  LIKE CONCAT('%', #{nearWWord}, '%')
     	  LIMIT 10;
     </select>
-    
+    <select id="getHouseOnAdress" parameterType="string" resultMap="result">
+    	SELECT h.ID, 
+    	       h.ADRESS,
+    	       h.LEVELS,
+    	       h.BUILT_YEAR,
+    	       h.LAST_REPAIR,
+    	       r.ID,
+    	       r.REGION 	       
+    	  FROM HOUSE AS h
+    	  LEFT OUTER JOIN REGION AS r 
+    	  ON h.REGION_ID = r.ID
+    	  WHERE h.ADRESS = #{adress};
+    </select>
 </mapper>

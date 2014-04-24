@@ -42,4 +42,13 @@ public class HouseDAO {
             session.close();
         }
     }
+    public House selectHouseOnAdress(String adress) {
+    	SqlSession session = sqlSessionFactory.openSession();
+        try {
+            House house = session.selectOne("House.getHouseOnAdress", adress);
+            return house;
+        } finally {
+            session.close();
+        }
+    }
 }

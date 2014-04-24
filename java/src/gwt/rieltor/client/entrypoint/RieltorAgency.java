@@ -5,22 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
-import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -30,7 +28,7 @@ import com.google.gwt.user.client.ui.DisclosurePanel;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.CheckBox;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 
 import gwt.rieltor.client.service.RieltorService;
 import gwt.rieltor.client.service.RieltorServiceAsync;
@@ -47,7 +45,7 @@ import gwt.rieltor.shared.ObjectState;
 import gwt.rieltor.shared.Region;
 import gwt.rieltor.shared.StateType;
 import gwt.rieltor.shared.Stove;
-import gwt.rieltor.shared.Toilet;
+import gwt.rieltor.shared.Toilet; 
 
 public class RieltorAgency  implements EntryPoint {
     
@@ -122,14 +120,14 @@ public class RieltorAgency  implements EntryPoint {
     private DockPanel CreateDockPanel() {        
         DockPanel docPanel = new DockPanel();
         
-        // ������ �������� ����
+        // North panel 1
         HorizontalPanel hPanelNorth = new HorizontalPanel();
         Button addAdvertButton = new Button();
         addAdvertButton.setText("Добавить объявление");
         addAdvertButton.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
                 // Create the dialog box
-                final DialogBox dialogBox = CreateAddAdvertDialog();
+                final DialogBox dialogBox = createAddAdvertDialog();
                 dialogBox.setGlassEnabled(true);
                 dialogBox.setAnimationEnabled(true);
                 dialogBox.setStyleName("dialog");
@@ -139,14 +137,28 @@ public class RieltorAgency  implements EntryPoint {
         });
         hPanelNorth.add(addAdvertButton);
         docPanel.add(hPanelNorth, DockPanel.NORTH);
-        
-        // �������� ����
+
+        // West panel
         VerticalPanel vPanelWest = new VerticalPanel();
         Button searchButton = new Button();
         searchButton.setText("Поиск");
         vPanelWest.add(searchButton);
         docPanel.add(vPanelWest, DockPanel.WEST);
         
+        // North panel 2
+        HorizontalPanel hPanelNorth2 = new HorizontalPanel();
+        Button bueButton = new Button("Покупка");
+        hPanelNorth2.add(bueButton);
+        Button sellButton = new Button("Продажа");
+        hPanelNorth2.add(sellButton);
+        Button rentDemandButton = new Button("Аренда спрос");
+        hPanelNorth2.add(rentDemandButton);
+        Button rentOfferButton = new Button("Аренда предложение");
+        hPanelNorth2.add(rentOfferButton);
+        Button allButton = new Button("Все");
+        hPanelNorth2.add(allButton);
+        docPanel.add(hPanelNorth2, DockPanel.NORTH);
+                
         // ����������� ����
         docPanel.add(tableAdvert, DockPanel.CENTER);  
                          
@@ -154,9 +166,12 @@ public class RieltorAgency  implements EntryPoint {
     }
     
     @SuppressWarnings("deprecation")
-    private DialogBox CreateAddAdvertDialog() {
+    private DialogBox createAddAdvertDialog() {
         final DialogBox dialog = new DialogBox();
         dialog.setText("Добавление объявления");
+        Advert newAdvert = new Advert();
+        ObjectData newObject = new ObjectData();
+        House newHouse = new House();
         
         // ������� ������������ ������
         VerticalPanel mainVPanel = new VerticalPanel();
@@ -171,7 +186,7 @@ public class RieltorAgency  implements EntryPoint {
         
         // ���������� � ����
         VerticalPanel houseVPanel = new VerticalPanel();
-        DisclosurePanel houseAPanel = new DisclosurePanel("Информация о доме");
+        final DisclosurePanel houseAPanel = new DisclosurePanel("Информация о доме");
         houseAPanel.setAnimationEnabled(true); 
         houseAPanel.setStyleName("disclosurePanel");
         Label labelReg = new Label("Район:");
@@ -191,17 +206,17 @@ public class RieltorAgency  implements EntryPoint {
         
         Label labelLs = new Label("Этажей:");
         labelLs.setStyleName("label");
-        TextBox textBoxLs = new TextBox();
+        final TextBox textBoxLs = new TextBox();
         houseVPanel.add(labelLs);
         houseVPanel.add(textBoxLs);
         Label labelBY = new Label("Год постройки:");
         labelBY.setStyleName("label");
-        TextBox textBoxBY = new TextBox();
+        final TextBox textBoxBY = new TextBox();
         houseVPanel.add(labelBY);
         houseVPanel.add(textBoxBY);
         Label labelLR = new Label("Последний ремонт:");
         labelLR.setStyleName("label");
-        TextBox textBoxLR = new TextBox();
+        final TextBox textBoxLR = new TextBox();
         houseVPanel.add(labelLR);
         houseVPanel.add(textBoxLR);
         
@@ -290,7 +305,7 @@ public class RieltorAgency  implements EntryPoint {
         advanceAPanel.setContent(advanceVPanel);
         mainVPanel.add(advanceAPanel);
         
-        // �������� ��������
+        // Load vocabularies
         for (AdvertType advertType : advertTypes) {
             dropBoxTA.addItem(advertType.getType());
         }
@@ -320,7 +335,7 @@ public class RieltorAgency  implements EntryPoint {
             dropBoxS.addItem(stove.getType());
         }
         
-        // ��������� ������
+        // Out adress help
         sugBoxAdress.addKeyUpHandler(new KeyUpHandler() {            
             public void onKeyUp(KeyUpEvent event) {
                 // TODO Auto-generated method stub
@@ -340,13 +355,40 @@ public class RieltorAgency  implements EntryPoint {
                 });
             }
         });
+        // Select an item in the help list. Insert a house data
+        sugBoxAdress.addSelectionHandler(new SelectionHandler<SuggestOracle.Suggestion>() {
+			
+			public void onSelection(SelectionEvent<Suggestion> event) {
+				// TODO Auto-generated method stub
+				rieltorService.getHouse(event.getSelectedItem().getReplacementString(), new AsyncCallback<House>() {
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						Window.alert("Fail to get house" + caught.getMessage());
+					}
+					public void onSuccess(House result) {
+						// TODO Auto-generated method stub
+						textBoxLs.setText(String.valueOf(result.getLevels()));
+						textBoxBY.setText(result.getBuiltYear());
+						textBoxLR.setText(result.getLastRepair());
+					}
+				});
+			}
+		});
         
         Button addButton = new Button();
         addButton.setText("Добавить");
+        addButton.setStyleName("button");
+        addButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				// Add House
+				
+			}
+		});
         mainVPanel.add(addButton);
         
         Button closeButton = new Button();
         closeButton.setText("Отмена");
+        closeButton.setStyleName("button");
         closeButton.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
                 dialog.hide();

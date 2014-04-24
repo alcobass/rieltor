@@ -59,6 +59,13 @@ h1 {
 .dialog input:focus {
   border: 2px solid #660066;
 }
+.dialog .button {
+  background-color: #bebebe;
+}
+.dialog .button:hover {
+  background: #660066;
+  color: white;
+}
 .dropBox {
   width: 250px;
 }
