@@ -31,4 +31,15 @@ public class AdvertDAO {
             session.close();
         }
     }
+    public void insert(Advert advert){
+
+        SqlSession session = sqlSessionFactory.openSession();
+        
+        try {
+            session.insert("Advert.insert", advert);
+            session.commit();
+        } finally {
+            session.close();
+        }
+    }
 }

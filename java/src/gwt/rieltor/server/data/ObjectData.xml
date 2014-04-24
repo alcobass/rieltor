@@ -87,5 +87,39 @@
     	  LEFT OUTER JOIN STOVE AS s ON o.STOVE_ID = s.ID
     	  LEFT OUTER JOIN OBJECT_STATE AS os ON o.OBJECT_STATE_ID = os.ID;
     </select>
+    <select id="getLastId" resultType="int">
+    	SELECT MAX(ID) FROM OBJECT;
+    </select>
+    
+    <insert id="insert" parameterType="ObjectData">
+    	INSERT INTO OBJECT 
+    			(HOUSE_ID,
+    			OBJECT_TYPE_ID,
+    	       	ROOMS,
+    	       	AREA,
+    	       	LEVEL,
+    	       	PORCH,
+    	       	BALCONY_ID,
+    	       	TOILET_ID,
+    	       	HEAT_ID,
+    	       	STOVE_ID,
+    	       	METERS,
+    	       	OBJECT_STATE_ID)
+		VALUES (#{house.id},
+				#{objectType.id},
+				#{rooms},
+				#{area},
+				#{level},
+				#{porch},
+				#{balcony.id},
+				#{toilet.id},
+				#{heat.id},
+				#{stove.id},
+				#{meters},
+				#{objectState.id});
+      <selectKey keyProperty="id" resultType="int" order="AFTER">
+		select last_insert_id() as id
+	  </selectKey>
+    </insert>
     
 </mapper>

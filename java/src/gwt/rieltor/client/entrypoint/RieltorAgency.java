@@ -30,6 +30,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 
+import gwt.rieltor.client.dialog.AddAdvertDialogBox;
 import gwt.rieltor.client.service.RieltorService;
 import gwt.rieltor.client.service.RieltorServiceAsync;
 import gwt.rieltor.client.table.AdvertDataSource;
@@ -51,6 +52,7 @@ public class RieltorAgency  implements EntryPoint {
     
     private RieltorServiceAsync rieltorService;
     private AdvertTable tableAdvert;
+    private AdvertDataSource source;
     
     private List<AdvertType> advertTypes;
     private List<Balcony> balconies;
@@ -100,7 +102,7 @@ public class RieltorAgency  implements EntryPoint {
                     }        
                     public void onSuccess(List<Advert> result) {
                         // �������� �������� �������
-                        AdvertDataSource source = new AdvertDataSource(result);
+                        source = new AdvertDataSource(result);
                         tableAdvert = new AdvertTable(source);
                         // �������� ������� ������������ ������
                         VerticalPanel mainVPanel = new VerticalPanel();
@@ -127,12 +129,8 @@ public class RieltorAgency  implements EntryPoint {
         addAdvertButton.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
                 // Create the dialog box
-                final DialogBox dialogBox = createAddAdvertDialog();
-                dialogBox.setGlassEnabled(true);
-                dialogBox.setAnimationEnabled(true);
-                dialogBox.setStyleName("dialog");
-                dialogBox.center();
-                dialogBox.show();
+                final AddAdvertDialogBox dialogBox = new AddAdvertDialogBox();
+                dialogBox.show();   
             }
         });
         hPanelNorth.add(addAdvertButton);
@@ -163,240 +161,6 @@ public class RieltorAgency  implements EntryPoint {
         docPanel.add(tableAdvert, DockPanel.CENTER);  
                          
         return docPanel;
-    }
-    
-    @SuppressWarnings("deprecation")
-    private DialogBox createAddAdvertDialog() {
-        final DialogBox dialog = new DialogBox();
-        dialog.setText("Добавление объявления");
-        Advert newAdvert = new Advert();
-        ObjectData newObject = new ObjectData();
-        House newHouse = new House();
-        
-        // ������� ������������ ������
-        VerticalPanel mainVPanel = new VerticalPanel();
-        mainVPanel.setStyleName("vPanel");
-        
-        Label labelTA = new Label("Тип объявления:");
-        labelTA.setStyleName("label");
-        final ListBox dropBoxTA = new ListBox(false);
-        dropBoxTA.setStyleName("dropBox");
-        mainVPanel.add(labelTA);
-        mainVPanel.add(dropBoxTA);
-        
-        // ���������� � ����
-        VerticalPanel houseVPanel = new VerticalPanel();
-        final DisclosurePanel houseAPanel = new DisclosurePanel("Информация о доме");
-        houseAPanel.setAnimationEnabled(true); 
-        houseAPanel.setStyleName("disclosurePanel");
-        Label labelReg = new Label("Район:");
-        labelReg.setStyleName("label");
-        final ListBox dropBoxReg = new ListBox(false);
-        dropBoxReg.setStyleName("dropBox");
-        houseVPanel.add(labelReg);
-        houseVPanel.add(dropBoxReg);
-        
-        Label labelAdr = new Label("Адрес:");
-        labelAdr.setStyleName("label");
-        final MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
-        final SuggestBox sugBoxAdress = new SuggestBox(oracle);
-        sugBoxAdress.setStyleName("suggestBox");        
-        houseVPanel.add(labelAdr);
-        houseVPanel.add(sugBoxAdress);
-        
-        Label labelLs = new Label("Этажей:");
-        labelLs.setStyleName("label");
-        final TextBox textBoxLs = new TextBox();
-        houseVPanel.add(labelLs);
-        houseVPanel.add(textBoxLs);
-        Label labelBY = new Label("Год постройки:");
-        labelBY.setStyleName("label");
-        final TextBox textBoxBY = new TextBox();
-        houseVPanel.add(labelBY);
-        houseVPanel.add(textBoxBY);
-        Label labelLR = new Label("Последний ремонт:");
-        labelLR.setStyleName("label");
-        final TextBox textBoxLR = new TextBox();
-        houseVPanel.add(labelLR);
-        houseVPanel.add(textBoxLR);
-        
-        houseAPanel.setContent(houseVPanel);
-        mainVPanel.add(houseAPanel);
-        
-        // �������� ���������
-        Label labelOT = new Label("Тип объекта:");
-        labelOT.setStyleName("label");
-        final ListBox dropBoxOT = new ListBox(false);
-        dropBoxOT.setStyleName("dropBox");
-        mainVPanel.add(labelOT);
-        mainVPanel.add(dropBoxOT);
-        
-        VerticalPanel paramsVPanel = new VerticalPanel();
-        paramsVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
-        paramsVPanel.setWidth("100%");
-        HorizontalPanel roomsHPanel = new HorizontalPanel();
-        roomsHPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
-        Label labelRs = new Label("Комнат:");
-        labelRs.setStyleName("label");
-        TextBox textBoxRs = new TextBox();
-        roomsHPanel.add(labelRs);
-        roomsHPanel.add(textBoxRs);
-        paramsVPanel.add(roomsHPanel);
-        HorizontalPanel areaHPanel = new HorizontalPanel();
-        areaHPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
-        Label labelA = new Label("Площадь:");
-        labelA.setStyleName("label");
-        TextBox textBoxA = new TextBox();
-        areaHPanel.add(labelA);
-        areaHPanel.add(textBoxA);
-        paramsVPanel.add(areaHPanel);
-        HorizontalPanel costHPanel = new HorizontalPanel();
-        costHPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
-        Label labelC = new Label("Цена:");
-        labelC.setStyleName("label");
-        TextBox textBoxC = new TextBox();
-        costHPanel.add(labelC);
-        costHPanel.add(textBoxC);
-        paramsVPanel.add(costHPanel);
-        mainVPanel.add(paramsVPanel);
-        
-        Label labelOS = new Label("Состояние объекта:");
-        labelOS.setStyleName("label");
-        final ListBox dropBoxOS = new ListBox(false);
-        dropBoxOS.setStyleName("dropBox");
-        mainVPanel.add(labelOS);
-        mainVPanel.add(dropBoxOS);
-        CheckBox commulCheck = new CheckBox("с четом коммуналки");
-        mainVPanel.add(commulCheck);
-        
-        // �������������� ���������
-        VerticalPanel advanceVPanel = new VerticalPanel();
-        DisclosurePanel advanceAPanel = new DisclosurePanel("Дополнительно");
-        advanceAPanel.setAnimationEnabled(true);
-        advanceAPanel.setStyleName("disclosurePanel");
-        
-        Label labelB = new Label("Балкон:");
-        labelB.setStyleName("label");
-        final ListBox dropBoxB = new ListBox(false);
-        dropBoxB.setStyleName("dropBox");
-        advanceVPanel.add(labelB);
-        advanceVPanel.add(dropBoxB);
-        Label labelT = new Label("Туалет:");
-        labelT.setStyleName("label");
-        final ListBox dropBoxT = new ListBox(false);
-        dropBoxT.setStyleName("dropBox");
-        advanceVPanel.add(labelT);
-        advanceVPanel.add(dropBoxT);
-        Label labelH = new Label("Отопление:");
-        labelH.setStyleName("label");
-        final ListBox dropBoxH = new ListBox(false);
-        dropBoxH.setStyleName("dropBox");
-        advanceVPanel.add(labelH);
-        advanceVPanel.add(dropBoxH);
-        Label labelS = new Label("Плита:");
-        labelS.setStyleName("label");
-        final ListBox dropBoxS = new ListBox(false);
-        dropBoxS.setStyleName("dropBox");
-        advanceVPanel.add(labelS);
-        advanceVPanel.add(dropBoxS);
-        CheckBox metersCheck = new CheckBox("счетчики");
-        advanceVPanel.add(metersCheck);
-        
-        advanceAPanel.setContent(advanceVPanel);
-        mainVPanel.add(advanceAPanel);
-        
-        // Load vocabularies
-        for (AdvertType advertType : advertTypes) {
-            dropBoxTA.addItem(advertType.getType());
-        }
-        for (Region region : regions) {
-            dropBoxReg.addItem(region.getRegionName());
-        }
-        for (ObjectType objectType : objectTypes) {
-            dropBoxOT.addItem(objectType.getType());
-        }
-        for (ObjectState objectState : objectStates) {
-            dropBoxOS.addItem(objectState.getType());
-        }
-        dropBoxB.addItem("Не указано");
-        for (Balcony balcony : balconies) {
-            dropBoxB.addItem(balcony.getType());
-        }
-        dropBoxT.addItem("Не указано");
-        for (Toilet toilet : toilets) {
-            dropBoxT.addItem(toilet.getType());
-        }
-        dropBoxH.addItem("Не указано");
-        for (Heat heat : heats) {
-            dropBoxH.addItem(heat.getType());
-        }
-        dropBoxS.addItem("Не указано");
-        for (Stove stove : stoves) {
-            dropBoxS.addItem(stove.getType());
-        }
-        
-        // Out adress help
-        sugBoxAdress.addKeyUpHandler(new KeyUpHandler() {            
-            public void onKeyUp(KeyUpEvent event) {
-                // TODO Auto-generated method stub
-                String nearWord = sugBoxAdress.getText();
-                rieltorService.getTop10Adress(nearWord, new AsyncCallback<List<String>>() {
-                    public void onFailure(Throwable caught) {
-                        // TODO Auto-generated method stub
-                        Window.alert(caught.getMessage());
-                    }
-                    public void onSuccess(List<String> result) {
-                        // TODO Auto-generated method stub
-                        oracle.clear();
-                        for(int i = 0; i < result.size(); i++) {
-                            oracle.add(result.get(i));
-                        }                  
-                    }
-                });
-            }
-        });
-        // Select an item in the help list. Insert a house data
-        sugBoxAdress.addSelectionHandler(new SelectionHandler<SuggestOracle.Suggestion>() {
-			
-			public void onSelection(SelectionEvent<Suggestion> event) {
-				// TODO Auto-generated method stub
-				rieltorService.getHouse(event.getSelectedItem().getReplacementString(), new AsyncCallback<House>() {
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						Window.alert("Fail to get house" + caught.getMessage());
-					}
-					public void onSuccess(House result) {
-						// TODO Auto-generated method stub
-						textBoxLs.setText(String.valueOf(result.getLevels()));
-						textBoxBY.setText(result.getBuiltYear());
-						textBoxLR.setText(result.getLastRepair());
-					}
-				});
-			}
-		});
-        
-        Button addButton = new Button();
-        addButton.setText("Добавить");
-        addButton.setStyleName("button");
-        addButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				// Add House
-				
-			}
-		});
-        mainVPanel.add(addButton);
-        
-        Button closeButton = new Button();
-        closeButton.setText("Отмена");
-        closeButton.setStyleName("button");
-        closeButton.addClickHandler(new ClickHandler() {
-            public void onClick(ClickEvent event) {
-                dialog.hide();
-            }
-        });
-        mainVPanel.add(closeButton);
-        
-        dialog.setWidget(mainVPanel);
-        return dialog;
-    }
+    } 
+   
 }

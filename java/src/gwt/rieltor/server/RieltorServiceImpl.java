@@ -105,6 +105,19 @@ public class RieltorServiceImpl extends RemoteServiceServlet implements
     	House house = houseDAO.selectHouseOnAdress(adress);
     	return house;
     }
+    public int setHouse(House house) {
+        houseDAO.insert(house);
+        int id = houseDAO.selectLastId();
+        return id;
+    }
+    public int setObject(ObjectData object) {
+        objectDataDAO.insert(object);
+        int id = objectDataDAO.selectLastId();
+        return id;
+    }
+    public void setAdvert(Advert advert) {
+    	advertDAO.insert(advert);
+    }
 
     public ArrayList<AdvertType> getAllAdvertType() {
         // TODO Auto-generated method stub

@@ -32,4 +32,24 @@ public class ObjectDataDAO {
             session.close();
         }
     }
+    public int selectLastId() {
+    	SqlSession session = sqlSessionFactory.openSession();
+        try {
+            int lastId = session.selectOne("ObjectData.getLastId");
+            return lastId;
+        } finally {
+            session.close();
+        }
+    }
+    public void insert(ObjectData object){
+
+        SqlSession session = sqlSessionFactory.openSession();
+        
+        try {
+            session.insert("ObjectData.insert", object);
+            session.commit();
+        } finally {
+            session.close();
+        }
+    }
 }

@@ -51,4 +51,24 @@ public class HouseDAO {
             session.close();
         }
     }
+    public int selectLastId() {
+    	SqlSession session = sqlSessionFactory.openSession();
+        try {
+            int lastId = session.selectOne("House.getLastId");
+            return lastId;
+        } finally {
+            session.close();
+        }
+    }
+    public void insert(House house){
+
+        SqlSession session = sqlSessionFactory.openSession();
+        
+        try {
+            session.insert("House.insert", house);
+            session.commit();
+        } finally {
+            session.close();
+        }
+    }
 }

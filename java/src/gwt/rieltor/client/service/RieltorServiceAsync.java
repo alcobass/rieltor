@@ -51,4 +51,10 @@ public interface RieltorServiceAsync {
 
 	void getHouse(String adress, AsyncCallback<House> callback);
 
+	void setHouse(House house, AsyncCallback<Integer> callback);
+
+	void setObject(ObjectData object, AsyncCallback<Integer> callback);
+
+	void setAdvert(Advert advert, AsyncCallback<Void> callback);
+
 }

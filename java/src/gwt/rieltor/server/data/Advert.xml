@@ -115,4 +115,23 @@
     	  LEFT OUTER JOIN OBJECT_STATE AS os ON o.OBJECT_STATE_ID = os.ID;
     </select>
     
+    <insert id="insert" parameterType="Advert">
+    	INSERT INTO ADVERT 
+    			(TYPE_ID,
+    	       	OBJECT_ID,
+    	       	COST,
+    	       	ADVERT_DATE,
+    	       	STATE_ID,
+    	       	COMMUNAL)
+		VALUES (#{advertType.id},
+				#{object.id},
+				#{cost},
+				#{advertDate},
+				#{stateType.id},
+				#{communal});
+      <selectKey keyProperty="id" resultType="int" order="AFTER">
+		select last_insert_id() as id
+	  </selectKey>
+    </insert>
+    
 </mapper>

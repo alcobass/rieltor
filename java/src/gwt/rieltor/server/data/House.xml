@@ -49,4 +49,15 @@
     	  ON h.REGION_ID = r.ID
     	  WHERE h.ADRESS = #{adress};
     </select>
+    <select id="getLastId" resultType="int">
+    	SELECT MAX(ID) FROM HOUSE;
+    </select>
+    
+    <insert id="insert" parameterType="House">
+    	INSERT INTO House (REGION_ID, ADRESS, LEVELS, BUILT_YEAR, LAST_REPAIR) 
+		VALUES (#{region.id}, #{adress}, #{levels}, #{builtYear}, #{lastRepair});
+      <selectKey keyProperty="id" resultType="int" order="AFTER">
+		select last_insert_id() as id
+	  </selectKey>
+    </insert>
 </mapper>
