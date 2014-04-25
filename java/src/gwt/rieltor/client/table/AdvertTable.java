@@ -2,7 +2,9 @@ package gwt.rieltor.client.table;
 
 import java.util.List;
 
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 
 import gwt.rieltor.shared.Advert;
 
@@ -11,6 +13,8 @@ public class AdvertTable extends FlexTable
     AdvertDataSource input;
     int selectedRow;
     boolean isSelected;
+    int startRow;
+    int endRow;
 
     public AdvertTable(AdvertDataSource input)
     {
@@ -20,8 +24,19 @@ public class AdvertTable extends FlexTable
         this.setWidth("100%");
         this.setInput(input);
         this.setStyleName("advertTable");
+        initPagingPanel();
     }
-
+    
+    private void initPagingPanel() {
+    	HorizontalPanel hPanel = new HorizontalPanel();
+    	Button prevButton = new Button("Назад");
+    	prevButton.setStyleName("button");
+    	hPanel.add(prevButton);
+    	Button nextButton = new Button("Вперед");
+    	nextButton.setStyleName("button");
+    	hPanel.add(nextButton);
+    	this.setWidget(11, 1, hPanel);
+    }
     public void setInput(AdvertDataSource input)
     {
         for (int i = this.getRowCount(); i > 0; i--)
@@ -49,16 +64,16 @@ public class AdvertTable extends FlexTable
         this.getRowFormatter().addStyleName(0, "tableHeader");
 
         List<Advert> rows = input.getAdverts();
-        int i = 1;
-        for (Advert myAdvert : rows)
+        startRow = 1;
+        endRow = 10;
+        for (int i = startRow; i < endRow; i++)
         {
-            this.setText(i, 0, myAdvert.getObject().getObjectType().getType());
-            this.setText(i, 1, myAdvert.getObject().getHouse().getRegion().getRegionName());
-            this.setText(i, 2, myAdvert.getObject().getHouse().getAdress());
-            this.setText(i, 3, String.valueOf(myAdvert.getObject().getArea()));
-            this.setText(i, 4, String.valueOf(myAdvert.getObject().getRooms()));
-            this.setText(i, 5, String.valueOf(myAdvert.getCost()));
-            i++;
+            this.setText(i, 0, rows.get(i).getObject().getObjectType().getType());
+            this.setText(i, 1, rows.get(i).getObject().getHouse().getRegion().getRegionName());
+            this.setText(i, 2, rows.get(i).getObject().getHouse().getAdress());
+            this.setText(i, 3, String.valueOf(rows.get(i).getObject().getArea()));
+            this.setText(i, 4, String.valueOf(rows.get(i).getObject().getRooms()));
+            this.setText(i, 5, String.valueOf(rows.get(i).getCost()));
         }
         this.input = input;
     }
@@ -94,7 +109,7 @@ public class AdvertTable extends FlexTable
         }
 
     }
-
+    
     public Advert GetSelectedAdvert() {
         return input.GetAdvert(selectedRow - 1);
     }
