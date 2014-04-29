@@ -464,6 +464,12 @@ public class AddAdvertDialogBox extends DialogBox {
 		});
 	}
 	
+	private boolean isFieldsFull() {
+		boolean fieldsFull = false;
+		
+		return fieldsFull;
+	}
+	
 	private void hideDialog() {
 		this.hide();
 	}
