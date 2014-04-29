@@ -32,7 +32,7 @@ public class MainDockPanel extends DockPanel {
 		super();
 		initContent();
 	}
-	
+
 	private void initContent() {
 		rieltorService = (RieltorServiceAsync) GWT.create(RieltorService.class);
         ServiceDefTarget serviceDef = (ServiceDefTarget) rieltorService;
@@ -82,15 +82,22 @@ public class MainDockPanel extends DockPanel {
 	}
 	private void initNorthPanel2() {
 		HorizontalPanel hPanelNorth2 = new HorizontalPanel();
+		hPanelNorth2.setWidth("100%");
+		hPanelNorth2.setHorizontalAlignment(HorizontalPanel.ALIGN_CENTER);
         Button bueButton = new Button("Покупка");
+        bueButton.setStyleName("filterButton");
         hPanelNorth2.add(bueButton);
         Button sellButton = new Button("Продажа");
+        sellButton.setStyleName("filterButton");
         hPanelNorth2.add(sellButton);
         Button rentDemandButton = new Button("Аренда спрос");
+        rentDemandButton.setStyleName("filterButton");
         hPanelNorth2.add(rentDemandButton);
         Button rentOfferButton = new Button("Аренда предложение");
+        rentOfferButton.setStyleName("filterButton");
         hPanelNorth2.add(rentOfferButton);
         Button allButton = new Button("Все");
+        allButton.setStyleName("filterButton");
         hPanelNorth2.add(allButton);
         this.add(hPanelNorth2, DockPanel.NORTH);
 	}

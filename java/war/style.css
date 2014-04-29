@@ -1,5 +1,6 @@
 .advertTable {
   border: 2px solid #000000;
+  width: 800px;
 }
 .advertTable .tableHeader {
   background-color: grey;
@@ -8,8 +9,20 @@
   background-color: blue;
   color: white;
 }
+.filterButton {
+  width: 160px;
+  height: 50px;
+  background-color: #bebebe;
+}
+.filterButton:hover {
+  background: #660066;
+  color: white;
+}
 h1 {
   text-align: center;
+}
+body {
+  background-color: #f0f0f0;
 }
 .gwt-SuggestBoxPopup {
   background: white;

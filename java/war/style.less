@@ -3,8 +3,11 @@
 @colorSecond: #660066;
 @tableBorderSize: 2px;
 @tableBorderColor: #000000;
+@tableWidth: 800px;
+
 .advertTable {
 	border: @tableBorderSize solid @tableBorderColor;
+	width: @tableWidth;
 	.tableHeader {
 		background-color: grey;
 	}
@@ -13,10 +16,23 @@
 		color: white;
 	}
 }
+.filterButton {
+	width: @tableWidth / 5;
+	height: 50px;
+	background-color: (@colorFirst - 50);
+		&:hover {
+			background: @colorSecond;
+		 	color: white;
+		}
+}
 
 h1 {
 	text-align: center;
 }
+body {
+	background-color: @colorFirst;
+}
+
 .gwt-SuggestBoxPopup {
 	background: white;
 	border: 2px solid @colorSecond;

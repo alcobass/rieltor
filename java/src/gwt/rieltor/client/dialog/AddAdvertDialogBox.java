@@ -281,16 +281,22 @@ public class AddAdvertDialogBox extends DialogBox {
         // Load data of begins
         loadVocabularies();
                 
+        HorizontalPanel hPanelButtonContent = new HorizontalPanel();
+        hPanelButtonContent.setWidth("100%");
+        hPanelButtonContent.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
+        HorizontalPanel hPanelButton = new HorizontalPanel();
         // Add button
         addButton = new Button();
         addButton.setText("Добавить");
         addButton.setStyleName("button");        
-        mainVPanel.add(addButton);
+        hPanelButton.add(addButton);
         // Close button
         closeButton = new Button();
         closeButton.setText("Отмена");
         closeButton.setStyleName("button");        
-        mainVPanel.add(closeButton);
+        hPanelButton.add(closeButton);        
+        hPanelButtonContent.add(hPanelButton);
+        mainVPanel.add(hPanelButtonContent);
         
         initElementsAction();
         
@@ -326,7 +332,12 @@ public class AddAdvertDialogBox extends DialogBox {
 	private void initElementsAction() {
 		addButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				addData();				
+				if (isFieldsFull()) {
+					addData();
+				}
+				else {
+					Window.alert("Заполните все поля");
+				}
 			}
 		});
 		closeButton.addClickHandler(new ClickHandler() {
@@ -467,6 +478,21 @@ public class AddAdvertDialogBox extends DialogBox {
 	private boolean isFieldsFull() {
 		boolean fieldsFull = false;
 		
+		if ((textBoxA.getText().isEmpty())
+				|| textBoxBY.getText().isEmpty()
+				|| textBoxC.getText().isEmpty()
+				|| textBoxL.getText().isEmpty()
+				|| textBoxLR.getText().isEmpty()
+				|| textBoxLs.getText().isEmpty()
+				|| textBoxP.getText().isEmpty()
+				|| textBoxRs.getText().isEmpty()
+				|| sugBoxAdress.getText().isEmpty()) {
+			fieldsFull = false;
+		}
+		else
+		{
+			fieldsFull = true;
+		}
 		return fieldsFull;
 	}
 	
