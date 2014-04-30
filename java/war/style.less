@@ -12,8 +12,15 @@
 		background-color: grey;
 	}
 	.selectedRow {
-		background-color: blue;
+		background-color: @colorSecond;
 		color: white;
+	}
+	.deselectedRow {
+		&:hover {
+			background-color: @colorSecond + 225;
+			color: black;
+			cursor: pointer;
+		}
 	}
 }
 .filterButton {
@@ -25,7 +32,15 @@
 		 	color: white;
 		}
 }
-
+.button {
+	background-color: (@colorFirst - 50);
+	&:enabled {
+		&:hover {
+			background: @colorSecond;
+	 		color: white;
+		}		
+	}
+}	
 h1 {
 	text-align: center;
 }
@@ -78,13 +93,6 @@ body {
 		border: 2px solid (@colorFirst - 10);
 		&:focus {
 			border: 2px solid @colorSecond;
-		}
-	}
-	.button {
-		background-color: (@colorFirst - 50);
-		&:hover {
-			background: @colorSecond;
-		 	color: white;
 		}
 	}	
 }

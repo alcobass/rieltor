@@ -6,8 +6,13 @@
   background-color: grey;
 }
 .advertTable .selectedRow {
-  background-color: blue;
+  background-color: #660066;
   color: white;
+}
+.advertTable .deselectedRow:hover {
+  background-color: #ffe1ff;
+  color: black;
+  cursor: pointer;
 }
 .filterButton {
   width: 160px;
@@ -15,6 +20,13 @@
   background-color: #bebebe;
 }
 .filterButton:hover {
+  background: #660066;
+  color: white;
+}
+.button {
+  background-color: #bebebe;
+}
+.button:enabled:hover {
   background: #660066;
   color: white;
 }
@@ -71,13 +83,6 @@ body {
 }
 .dialog input:focus {
   border: 2px solid #660066;
-}
-.dialog .button {
-  background-color: #bebebe;
-}
-.dialog .button:hover {
-  background: #660066;
-  color: white;
 }
 .dropBox {
   width: 250px;
